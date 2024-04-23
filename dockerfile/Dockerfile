@@ -1,4 +1,9 @@
+# start with the official Composer image and name it
+FROM composer:latest AS composer
+
 FROM php:8.3.6-fpm
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 ## Diretório da aplicação
 ARG APP_DIR=/var/www/html
@@ -10,10 +15,11 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# copy the Composer PHAR from the Composer image into the PHP image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
-ENV COMPOSER_ALLOW_SUPERUSER=1
+# show that both Composer and PHP run as expected
+RUN composer --version && php -v
 
 WORKDIR $APP_DIR
 RUN chown www-data:www-data $APP_DIR
