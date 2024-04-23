@@ -14,14 +14,10 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR $APP_DIR
-RUN cd $APP_DIR
 RUN chown www-data:www-data $APP_DIR
-COPY . $APP_DIR
-RUN chmod -R 777 *
-RUN pwd && ls -lh
+COPY --chown=www-data:www-data ./ .
 RUN composer install --no-interaction
 RUN php artisan key:generate
-
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
