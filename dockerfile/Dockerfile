@@ -8,9 +8,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
     gnupg
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql session xml
-
-RUN docker-php-ext-install zip iconv simplexml pcntl gd fileinfo
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
