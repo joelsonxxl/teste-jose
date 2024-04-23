@@ -5,7 +5,8 @@ ARG APP_DIR=/var/www/html
 
 ### apt-utils é um extensão de recursos do gerenciador de pacotes APT
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
-    apt-utils
+    apt-utils \
+    gnupg
 
 # Adicionar o repositório da Microsoft para o SQL Server
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
