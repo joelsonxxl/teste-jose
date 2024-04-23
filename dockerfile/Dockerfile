@@ -12,6 +12,7 @@ ARG APP_DIR=/var/www/html
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
     git \
+    unzip \
     gnupg
 
 RUN docker-php-ext-install pdo pdo_mysql
