@@ -35,6 +35,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN chown www-data:www-data -R *
 
-EXPOSE 5000
+EXPOSE 8000
 
 CMD ["php", "artisan", "serve"]
