@@ -35,10 +35,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN chown www-data:www-data -R *
 
-RUN ls -lha
-
-RUN php --version
-
 EXPOSE 5000
 
-CMD ["php artisan serve —port=5000"]
+CMD ["php artisan serve -—port=5000"]
