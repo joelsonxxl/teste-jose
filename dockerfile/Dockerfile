@@ -24,6 +24,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer --version && php -v
 
 WORKDIR $APP_DIR
+RUN chown www-data:www-data $APP_DIR
+COPY --chown=www-data:www-data ./ .
 RUN composer install --no-interaction
 RUN chown www-data:www-data $APP_DIR
 COPY --chown=www-data:www-data ./ .
