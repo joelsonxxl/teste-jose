@@ -37,4 +37,4 @@ RUN chown www-data:www-data -R *
 
 EXPOSE 5000
 
-CMD ["php artisan serve -—port=5000"]
+CMD ["/usr/local/bin/php /var/www/html/artisan serve --host=0.0.0.0 -—port=5000"]
