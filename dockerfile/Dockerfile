@@ -8,15 +8,6 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
     gnupg
 
-# Adicionar o repositório da Microsoft para o SQL Server
-#RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-#    && curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-#    && apt-get update -y \
-#    && ACCEPT_EULA=Y apt-get install -y msodbcsql17 \
-#    && ACCEPT_EULA=Y apt-get install -y mssql-tools \
-#    && echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc \
-#    && /bin/bash -c "source ~/.bashrc"
-
 RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql session xml
 
 RUN docker-php-ext-install zip iconv simplexml pcntl gd fileinfo
