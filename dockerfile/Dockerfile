@@ -18,7 +18,7 @@ RUN cd $APP_DIR
 RUN chown www-data:www-data $APP_DIR
 COPY . $APP_DIR
 RUN chmod -R 777 *
-RUN PWD && ls -lh
+RUN pwd && ls -lh
 RUN composer install --no-interaction
 RUN php artisan key:generate
 
