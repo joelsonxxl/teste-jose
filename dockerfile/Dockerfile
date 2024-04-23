@@ -11,6 +11,7 @@ ARG APP_DIR=/var/www/html
 ### apt-utils é um extensão de recursos do gerenciador de pacotes APT
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
+    git \
     gnupg
 
 RUN docker-php-ext-install pdo pdo_mysql
