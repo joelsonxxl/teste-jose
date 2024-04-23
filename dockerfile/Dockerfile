@@ -36,5 +36,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 5000
 
-
-CMD ["/usr/bin/php", "/var/www/html/artisan", "serve —port 5000"]
+CMD ["php", "/var/www/html/artisan", "serve —port=5000"]
