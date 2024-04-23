@@ -1,7 +1,10 @@
 # start with the official Composer image and name it
 FROM composer:latest AS composer
 
-FROM php:8.3.6-fpm
+# copy the Composer PHAR from the Composer image into the PHP image
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+FROM php:8.3.6-apache
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
@@ -12,14 +15,10 @@ ARG APP_DIR=/var/www/html
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
     git \
-    apache2 \
     unzip \
     gnupg
 
 RUN docker-php-ext-install pdo pdo_mysql
-
-# copy the Composer PHAR from the Composer image into the PHP image
-COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR $APP_DIR
 RUN chown www-data:www-data $APP_DIR
