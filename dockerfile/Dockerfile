@@ -24,21 +24,17 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer --version && php -v
 
 WORKDIR $APP_DIR
+RUN composer install --no-interaction
 RUN chown www-data:www-data $APP_DIR
 COPY --chown=www-data:www-data ./ .
-RUN composer install --no-interaction
 RUN php artisan key:generate
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN ls -lha
 
-RUN pause 5
-
 RUN php --version
-
-RUN pause 5
 
 EXPOSE 5000
 
-CMD ["php /var/www/html/artisan serve —port=5000"]
+CMD ["php artisan serve —port=5000"]
