@@ -31,6 +31,14 @@ RUN php artisan key:generate
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN ls -lha
+
+RUN pause 5
+
+RUN php --version
+
+RUN pause 5
+
 EXPOSE 5000
 
 CMD ["php /var/www/html/artisan serve —port=5000"]
