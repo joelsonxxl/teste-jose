@@ -12,6 +12,7 @@ ARG APP_DIR=/var/www/html
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
     apt-utils \
     git \
+    apache2 \
     unzip \
     gnupg
 
@@ -19,9 +20,6 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 # copy the Composer PHAR from the Composer image into the PHP image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-# show that both Composer and PHP run as expected
-RUN composer --version && php -v
 
 WORKDIR $APP_DIR
 RUN chown www-data:www-data $APP_DIR
@@ -35,6 +33,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN chown www-data:www-data -R *
 
-EXPOSE 8000
+EXPOSE 80
 
-CMD ["php", "artisan", "serve"]
+CMD ["apache2-foreground"]
