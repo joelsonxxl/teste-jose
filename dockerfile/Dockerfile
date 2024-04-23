@@ -33,6 +33,8 @@ RUN php artisan key:generate
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN chown www-data:www-data -R *
+
 RUN ls -lha
 
 RUN php --version
