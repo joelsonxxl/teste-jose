@@ -14,16 +14,8 @@
 
     <!-- Scripts -->
 
-    <style src="{{ asset('app-2AZtztQ_.css') }}"></style>
-    <script>
-        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia(
-                '(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-        }
-    </script>
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DyJn1dhZ.css') }}" >
+
 </head>
 
 <body class="font-sans antialiased">
@@ -44,7 +36,7 @@
             {{ $slot }}
         </main>
     </div>
-    <script src="{{ asset('app-C4H8LNc4.js') }}"></script>
+    <script src="{{ asset('build/assets/app-tp79DmyB.js') }}"></script>
 </body>
 
 </html>

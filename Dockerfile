@@ -1,15 +1,11 @@
-# start with the official Composer image and name it
-FROM composer:latest AS composer
-
-# copy the Composer PHAR from the Composer image into the PHP image
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
 FROM php:8.3.6-apache
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 ## Diretório da aplicação
 ARG APP_DIR=/var/www/html
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ### apt-utils é um extensão de recursos do gerenciador de pacotes APT
 RUN apt-get update -y && apt-get install -y --no-install-recommends \
@@ -23,14 +19,16 @@ RUN docker-php-ext-install pdo pdo_mysql
 WORKDIR $APP_DIR
 RUN chown www-data:www-data $APP_DIR
 COPY --chown=www-data:www-data ./ .
+
 RUN composer install --no-interaction
-RUN chown www-data:www-data $APP_DIR
-COPY --chown=www-data:www-data ./ .
+RUN cp .env.example .env
 RUN php artisan key:generate
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN chown www-data:www-data -R *
+
+RUN a2enmod rewrite
 
 EXPOSE 80
 
