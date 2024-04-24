@@ -16,6 +16,9 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 RUN docker-php-ext-install pdo pdo_mysql
 
+RUN rm -rf /etc/apache2/sites-enabled/000-default.conf
+COPY ./apacheconfig/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
 WORKDIR $APP_DIR
 RUN chown www-data:www-data $APP_DIR
 COPY --chown=www-data:www-data ./ .
