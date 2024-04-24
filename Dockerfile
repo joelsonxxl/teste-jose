@@ -24,7 +24,6 @@ RUN chown www-data:www-data $APP_DIR
 COPY --chown=www-data:www-data ./ .
 
 RUN composer install --no-interaction
-RUN cp .env.example .env
 RUN php artisan key:generate
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
